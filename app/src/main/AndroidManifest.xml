@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MadrassaManagemnetSystem"
         tools:targetApi="31">
         <activity
+            android:name=".AddStudentRecordActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddStudentActivity"
             android:exported="false" />
         <activity
