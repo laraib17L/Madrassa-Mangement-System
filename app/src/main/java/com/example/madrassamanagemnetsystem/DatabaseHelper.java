@@ -1,5 +1,6 @@
 package com.example.madrassamanagemnetsystem;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -103,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieving all students
+    @SuppressLint("Range")
     public List<Student> getAllStudents() {
         List<Student> studentList = new ArrayList<>();
 
@@ -133,6 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Searching for students based on criteria
+    @SuppressLint("Range")
     public List<Student> searchStudents(String searchCriteria) {
         List<Student> studentList = new ArrayList<>();
 
