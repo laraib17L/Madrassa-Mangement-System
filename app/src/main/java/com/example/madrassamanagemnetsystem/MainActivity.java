@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         btnGitHub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://github.com/your_repository_url";
+                String url = "https://github.com/laraib17L/Madrassa-Mangement-System";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }
