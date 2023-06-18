@@ -3,13 +3,16 @@ package com.example.madrassamanagemnetsystem;
 public class StudentRecord {
     private String id;
     private String name;
+    private String date;
     private String sabaq;
     private String sabaqi;
     private String manzil;
 
-    public StudentRecord(String id, String name, String sabaq, String sabaqi, String manzil) {
+
+    public StudentRecord(String id, String name,String date, String sabaq, String sabaqi, String manzil) {
         this.id = id;
         this.name = name;
+        this.date = date;
         this.sabaq = sabaq;
         this.sabaqi = sabaqi;
         this.manzil = manzil;
@@ -29,6 +32,14 @@ public class StudentRecord {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getSabaq() {

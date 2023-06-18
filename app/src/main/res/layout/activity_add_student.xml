@@ -24,6 +24,7 @@
         android:inputType="number"
         android:hint="Age" />
 
+
     <EditText
         android:id="@+id/classEditText"
         android:layout_width="110dp"
@@ -36,6 +37,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Submit" />
-
 
 </LinearLayout>

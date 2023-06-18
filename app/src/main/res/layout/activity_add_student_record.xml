@@ -15,6 +15,11 @@
         android:layout_width="110dp"
         android:layout_height="49dp"
         android:hint="Name" />
+    <EditText
+        android:id="@+id/Editdate"
+        android:layout_width="110dp"
+        android:layout_height="49dp"
+        android:hint="Date" />
 
     <EditText
         android:id="@+id/sabaqEditText"

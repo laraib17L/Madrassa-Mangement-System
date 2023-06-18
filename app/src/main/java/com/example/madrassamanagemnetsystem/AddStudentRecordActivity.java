@@ -1,6 +1,7 @@
 package com.example.madrassamanagemnetsystem;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddStudentRecordActivity extends AppCompatActivity {
 
-    private EditText idEditText, nameEditText, sabaqEditText, sabaqiEditText, manzilEditText;
+    private EditText idEditText, nameEditText, sabaqEditText, sabaqiEditText, manzilEditText,Editdate;
     private DatabaseHelper databaseHelper;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,7 @@ public class AddStudentRecordActivity extends AppCompatActivity {
 
         idEditText = findViewById(R.id.idEditText);
         nameEditText = findViewById(R.id.nameEditText);
+        Editdate = findViewById(R.id.Editdate);
         sabaqEditText = findViewById(R.id.sabaqEditText);
         sabaqiEditText = findViewById(R.id.sabaqiEditText);
         manzilEditText = findViewById(R.id.manzilEditText);
@@ -33,6 +36,7 @@ public class AddStudentRecordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String id = idEditText.getText().toString();
                 String name = nameEditText.getText().toString();
+                String date = Editdate.getText().toString();
                 String sabaq = sabaqEditText.getText().toString();
                 String sabaqi = sabaqiEditText.getText().toString();
                 String manzil = manzilEditText.getText().toString();
@@ -40,7 +44,7 @@ public class AddStudentRecordActivity extends AppCompatActivity {
                 // Check if the student exists in the first database
                 if (databaseHelper.checkStudentExistence(id, name)) {
                     // Insert the student record into the second database
-                    StudentRecord record = new StudentRecord(id, name, sabaq, sabaqi, manzil);
+                    StudentRecord record = new StudentRecord(id, name,date, sabaq, sabaqi, manzil);
                     boolean isRecordInserted = databaseHelper.insertStudentRecord(record);
 
                     if (isRecordInserted) {
@@ -59,6 +63,7 @@ public class AddStudentRecordActivity extends AppCompatActivity {
     private void clearFields() {
         idEditText.setText("");
         nameEditText.setText("");
+        Editdate.setText("");
         sabaqEditText.setText("");
         sabaqiEditText.setText("");
         manzilEditText.setText("");

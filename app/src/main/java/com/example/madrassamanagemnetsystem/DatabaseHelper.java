@@ -24,9 +24,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_CLASS = "class";
 
     private static final String TABLE_STUDENT_RECORD = "student_record";
+    private static final String COLUMN_DATE = "date";
     private static final String COLUMN_SABAQ = "sabaq";
     private static final String COLUMN_SABAQI = "sabaqi";
     private static final String COLUMN_MANZIL = "manzil";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createStudentRecordTableQuery = "CREATE TABLE " + TABLE_STUDENT_RECORD + " ("
                 + COLUMN_ID + " TEXT, "
                 + COLUMN_NAME + " TEXT, "
+                + COLUMN_DATE + " TEXT, "
                 + COLUMN_SABAQ + " TEXT, "
                 + COLUMN_SABAQI + " TEXT, "
                 + COLUMN_MANZIL + " TEXT)";
@@ -63,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ID, student.getId());
         values.put(COLUMN_NAME, student.getName());
         values.put(COLUMN_AGE, student.getAge());
-        values.put(COLUMN_CLASS, student.getName());
+        values.put(COLUMN_CLASS, student.getClassName());
 
         long result = db.insert(TABLE_STUDENT, null, values);
         return result != -1;
@@ -107,6 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, record.getId());
         values.put(COLUMN_NAME, record.getName());
+        values.put(COLUMN_DATE, record.getDate());
         values.put(COLUMN_SABAQ, record.getSabaq());
         values.put(COLUMN_SABAQI, record.getSabaqi());
         values.put(COLUMN_MANZIL, record.getManzil());
@@ -114,4 +118,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_STUDENT_RECORD, null, values);
         return result != -1;
     }
+    public List<StudentRecord> searchStudentRecords(String criteria) {
+        List<StudentRecord> recordList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_STUDENT_RECORD +
+                " WHERE " + COLUMN_NAME + " LIKE '%" + criteria + "%'", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String id = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+                @SuppressLint("Range") String sabaq = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQ));
+                @SuppressLint("Range") String sabaqi = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQI));
+                @SuppressLint("Range") String manzil = cursor.getString(cursor.getColumnIndex(COLUMN_MANZIL));
+
+                StudentRecord record = new StudentRecord(id, name, date, sabaq, sabaqi, manzil);
+                recordList.add(record);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return recordList;
+    }
+
+
 }
