@@ -1,5 +1,7 @@
 package com.example.madrassamanagemnetsystem;
 
+
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,47 +12,41 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddStudentActivity extends AppCompatActivity {
 
-    private EditText etId, etName, etAge, etClass;
-    private Button btnAddStudent;
-    private DatabaseHelper databaseHelper;
+    private EditText idEditText, nameEditText, ageEditText, classEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);
 
-        etId = findViewById(R.id.etId);
-        etName = findViewById(R.id.etName);
-        etAge = findViewById(R.id.etAge);
-        etClass = findViewById(R.id.etClass);
-        btnAddStudent = findViewById(R.id.btnAddStudent);
-        databaseHelper = new DatabaseHelper(this);
+        idEditText = findViewById(R.id.idEditText);
+        nameEditText = findViewById(R.id.nameEditText);
+        ageEditText = findViewById(R.id.ageEditText);
+        classEditText = findViewById(R.id.classEditText);
+        Button submitButton = findViewById(R.id.submitButton);
 
-        btnAddStudent.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = Integer.parseInt(etId.getText().toString());
-                String name = etName.getText().toString();
-                int age = Integer.parseInt(etAge.getText().toString());
-                String className = etClass.getText().toString();
+                String id = idEditText.getText().toString();
+                String name = nameEditText.getText().toString();
+                String age = ageEditText.getText().toString();
+                String className = classEditText.getText().toString();
 
+                // Create a Student object
                 Student student = new Student(id, name, age, className);
-                long result = databaseHelper.addStudent(student);
 
-                if (result != -1) {
+                // Insert the student details into the database using DatabaseHelper
+                DatabaseHelper databaseHelper = new DatabaseHelper(AddStudentActivity.this);
+                boolean success = databaseHelper.insertStudent(student);
+
+                if (success) {
                     Toast.makeText(AddStudentActivity.this, "Student added successfully", Toast.LENGTH_SHORT).show();
-                    clearFields();
+                    finish(); // Close the activity after successful insertion
                 } else {
                     Toast.makeText(AddStudentActivity.this, "Failed to add student", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-    private void clearFields() {
-        etId.setText("");
-        etName.setText("");
-        etAge.setText("");
-        etClass.setText("");
     }
 }

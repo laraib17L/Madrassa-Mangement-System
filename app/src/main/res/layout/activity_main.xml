@@ -1,54 +1,44 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:gravity="center">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btnAddStudent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Student"
-            android:layout_marginBottom="16dp" />
-
-        <Button
-            android:id="@+id/btnAddStudentRecord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Student Record"
-            android:layout_marginBottom="16dp" />
-
-        <Button
-            android:id="@+id/btnSearchStudentRecord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search Student Record"
-            android:layout_marginBottom="16dp" />
-
-    </LinearLayout>
-
+    <!-- Add Student Button -->
     <Button
-        android:id="@+id/btnGitHub"
+        android:id="@+id/addStudentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GitHub"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Add Student" />
+
+    <!-- Add Student Record Button -->
+    <Button
+        android:id="@+id/addStudentRecordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Add Student Record" />
+
+    <!-- Search Student Record Button -->
+    <Button
+        android:id="@+id/searchStudentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Search Student Record" />
+
+    <!-- GitHub Repository Button -->
+
+    <Button
+        android:id="@+id/gitHubButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="GitHub Repository" />
 
 </LinearLayout>

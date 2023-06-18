@@ -1,5 +1,7 @@
 package com.example.madrassamanagemnetsystem;
 
+
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,45 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "madrasa.db";
+
+    private static final String DATABASE_NAME = "student.db";
     private static final int DATABASE_VERSION = 1;
 
-    // Table Names
-    private static final String TABLE_STUDENT = "students";
-    private static final String TABLE_STUDENT_RECORD = "student_records";
-
-    // Common column names
+    private static final String TABLE_STUDENT = "student";
     private static final String COLUMN_ID = "id";
-
-    // STUDENT Table - column names
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_AGE = "age";
     private static final String COLUMN_CLASS = "class";
 
-    // STUDENT_RECORD Table - column names
-    private static final String COLUMN_STUDENT_ID = "student_id";
+    private static final String TABLE_STUDENT_RECORD = "student_record";
     private static final String COLUMN_SABAQ = "sabaq";
     private static final String COLUMN_SABAQI = "sabaqi";
     private static final String COLUMN_MANZIL = "manzil";
-
-    // Create table statements
-    private static final String CREATE_TABLE_STUDENT = "CREATE TABLE " + TABLE_STUDENT +
-            "(" +
-            COLUMN_ID + " INTEGER PRIMARY KEY," +
-            COLUMN_NAME + " TEXT," +
-            COLUMN_AGE + " INTEGER," +
-            COLUMN_CLASS + " TEXT" +
-            ")";
-
-    private static final String CREATE_TABLE_STUDENT_RECORD = "CREATE TABLE " + TABLE_STUDENT_RECORD +
-            "(" +
-            COLUMN_ID + " INTEGER PRIMARY KEY," +
-            COLUMN_STUDENT_ID + " INTEGER," +
-            COLUMN_SABAQ + " TEXT," +
-            COLUMN_SABAQI + " TEXT," +
-            COLUMN_MANZIL + " INTEGER," +
-            "FOREIGN KEY(" + COLUMN_STUDENT_ID + ") REFERENCES " + TABLE_STUDENT + "(" + COLUMN_ID + ")" +
-            ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,112 +34,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_STUDENT);
-        db.execSQL(CREATE_TABLE_STUDENT_RECORD);
+        String createStudentTableQuery = "CREATE TABLE " + TABLE_STUDENT + " ("
+                + COLUMN_ID + " TEXT PRIMARY KEY, "
+                + COLUMN_NAME + " TEXT, "
+                + COLUMN_AGE + " TEXT, "
+                + COLUMN_CLASS + " TEXT)";
+        db.execSQL(createStudentTableQuery);
+
+        String createStudentRecordTableQuery = "CREATE TABLE " + TABLE_STUDENT_RECORD + " ("
+                + COLUMN_ID + " TEXT, "
+                + COLUMN_NAME + " TEXT, "
+                + COLUMN_SABAQ + " TEXT, "
+                + COLUMN_SABAQI + " TEXT, "
+                + COLUMN_MANZIL + " TEXT)";
+        db.execSQL(createStudentRecordTableQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older tables if they exist
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT_RECORD);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
-
-        // Create tables again
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT_RECORD);
         onCreate(db);
     }
 
-    // Adding a student
-    public long addStudent(Student student) {
+    public boolean insertStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, student.getId());
         values.put(COLUMN_NAME, student.getName());
         values.put(COLUMN_AGE, student.getAge());
-        values.put(COLUMN_CLASS, student.getClassName());
+        values.put(COLUMN_CLASS, student.getName());
 
-        // Inserting the row
         long result = db.insert(TABLE_STUDENT, null, values);
-        db.close();
-        return result;
+        return result != -1;
     }
 
-    // Adding a student record
-    public long addStudentRecord(StudentRecord studentRecord) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_STUDENT_ID, studentRecord.getStudentId());
-        values.put(COLUMN_SABAQ, studentRecord.getSabaq());
-        values.put(COLUMN_SABAQI, studentRecord.getSabaqi());
-        values.put(COLUMN_MANZIL, studentRecord.getManzil());
-
-        // Inserting the row
-        long result = db.insert(TABLE_STUDENT_RECORD, null, values);
-        db.close();
-        return result;
-    }
-
-    // Retrieving all students
-    @SuppressLint("Range")
     public List<Student> getAllStudents() {
         List<Student> studentList = new ArrayList<>();
 
-        // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_STUDENT;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_STUDENT, null);
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // Loop through all rows and add to list
         if (cursor.moveToFirst()) {
             do {
-                Student student = new Student();
-                student.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-                student.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
-                student.setAge(cursor.getInt(cursor.getColumnIndex(COLUMN_AGE)));
-                student.setClassName(cursor.getString(cursor.getColumnIndex(COLUMN_CLASS)));
+                @SuppressLint("Range") String id = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                @SuppressLint("Range") String age = cursor.getString(cursor.getColumnIndex(COLUMN_AGE));
+                @SuppressLint("Range") String className = cursor.getString(cursor.getColumnIndex(COLUMN_CLASS));
 
+                Student student = new Student(id, name, age, className);
                 studentList.add(student);
             } while (cursor.moveToNext());
         }
 
-        // Close the cursor and database
         cursor.close();
-        db.close();
-
         return studentList;
     }
 
-    // Searching for students based on criteria
-    @SuppressLint("Range")
-    public List<Student> searchStudents(String searchCriteria) {
-        List<Student> studentList = new ArrayList<>();
+    public boolean checkStudentExistence(String id, String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_ID + "=? AND " + COLUMN_NAME + "=?";
+        String[] selectionArgs = { id, name };
+        Cursor cursor = db.query(TABLE_STUDENT, null, selection, selectionArgs, null, null, null);
 
-        // Select Query with WHERE clause
-        String selectQuery = "SELECT * FROM " + TABLE_STUDENT +
-                " WHERE " + COLUMN_NAME + " LIKE '%" + searchCriteria + "%'";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // Loop through all rows and add to list
-        if (cursor.moveToFirst()) {
-            do {
-                Student student = new Student();
-                student.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-                student.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
-                student.setAge(cursor.getInt(cursor.getColumnIndex(COLUMN_AGE)));
-                student.setClassName(cursor.getString(cursor.getColumnIndex(COLUMN_CLASS)));
-
-                studentList.add(student);
-            } while (cursor.moveToNext());
-        }
-
-        // Close the cursor and database
+        boolean exists = cursor.moveToFirst();
         cursor.close();
-        db.close();
+        return exists;
+    }
 
-        return studentList;
+    public boolean insertStudentRecord(StudentRecord record) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, record.getId());
+        values.put(COLUMN_NAME, record.getName());
+        values.put(COLUMN_SABAQ, record.getSabaq());
+        values.put(COLUMN_SABAQI, record.getSabaqi());
+        values.put(COLUMN_MANZIL, record.getManzil());
+
+        long result = db.insert(TABLE_STUDENT_RECORD, null, values);
+        return result != -1;
     }
 }

@@ -1,37 +1,34 @@
 package com.example.madrassamanagemnetsystem;
 
 public class StudentRecord {
-    private int id;
-    private int studentId;
+    private String id;
+    private String name;
     private String sabaq;
     private String sabaqi;
-    private int manzil;
+    private String manzil;
 
-    public StudentRecord() {
-    }
-
-    public StudentRecord(int id, int studentId, String sabaq, String sabaqi, int manzil) {
+    public StudentRecord(String id, String name, String sabaq, String sabaqi, String manzil) {
         this.id = id;
-        this.studentId = studentId;
+        this.name = name;
         this.sabaq = sabaq;
         this.sabaqi = sabaqi;
         this.manzil = manzil;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public String getName() {
+        return name;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSabaq() {
@@ -50,12 +47,11 @@ public class StudentRecord {
         this.sabaqi = sabaqi;
     }
 
-    public int getManzil() {
+    public String getManzil() {
         return manzil;
     }
 
-    public void setManzil(int manzil) {
+    public void setManzil(String manzil) {
         this.manzil = manzil;
     }
 }
-

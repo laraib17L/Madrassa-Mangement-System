@@ -10,44 +10,43 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnAddStudent, btnAddStudentRecord, btnSearchStudentRecord, btnGitHub;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnAddStudent = findViewById(R.id.btnAddStudent);
-        btnAddStudentRecord = findViewById(R.id.btnAddStudentRecord);
-        btnSearchStudentRecord = findViewById(R.id.btnSearchStudentRecord);
-        btnGitHub = findViewById(R.id.btnGitHub);
+        Button addStudentButton = findViewById(R.id.addStudentButton);
+        Button addStudentRecordButton = findViewById(R.id.addStudentRecordButton);
+        Button searchStudentButton = findViewById(R.id.searchStudentButton);
+        Button gitHubButton = findViewById(R.id.gitHubButton);
 
-        btnAddStudent.setOnClickListener(new View.OnClickListener() {
+        addStudentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AddStudentActivity.class));
             }
         });
 
-        btnAddStudentRecord.setOnClickListener(new View.OnClickListener() {
+        addStudentRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AddStudentRecordActivity.class));
             }
         });
 
-        btnSearchStudentRecord.setOnClickListener(new View.OnClickListener() {
+        searchStudentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SearchStudentRecordActivity.class));
             }
         });
 
-        btnGitHub.setOnClickListener(new View.OnClickListener() {
+        gitHubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = "https://github.com/laraib17L/Madrassa-Mangement-System";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
                 startActivity(intent);
             }
         });
