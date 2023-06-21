@@ -9,6 +9,7 @@
         android:id="@+id/idEditText"
         android:layout_width="140dp"
         android:layout_height="49dp"
+        android:inputType="number"
         android:textColorHint="#FFD700"
         android:textColor="#FFD700"
         android:hint="Enter ID#" />
@@ -58,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:background="#3F826D"
         android:text="Add" />
 
 </LinearLayout>
