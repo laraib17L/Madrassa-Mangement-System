@@ -2,48 +2,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/backgrouncolor"
     android:gravity="center">
 
     <EditText
         android:id="@+id/idEditText"
-        android:layout_width="110dp"
+        android:layout_width="140dp"
         android:layout_height="49dp"
-        android:hint="ID" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter ID#" />
 
     <EditText
         android:id="@+id/nameEditText"
-        android:layout_width="110dp"
+        android:layout_width="140dp"
         android:layout_height="49dp"
-        android:hint="Name" />
+        android:hint="Enter Name"
+        android:textColor="#FFD700"
+        android:textColorHint="#FFD700" />
+
     <EditText
         android:id="@+id/Editdate"
-        android:layout_width="110dp"
+        android:layout_width="140dp"
         android:layout_height="49dp"
-        android:hint="Date" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter Date" />
 
     <EditText
         android:id="@+id/sabaqEditText"
-        android:layout_width="110dp"
+        android:layout_width="140dp"
         android:layout_height="49dp"
-        android:hint="Sabaq" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter Sabaq" />
 
     <EditText
         android:id="@+id/sabaqiEditText"
-        android:layout_width="110dp"
+        android:layout_width="140dp"
         android:layout_height="49dp"
-        android:hint="Sabaqi" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter Sabaqi" />
 
     <EditText
         android:id="@+id/manzilEditText"
-        android:layout_width="110dp"
+        android:layout_width="140dp"
         android:layout_height="49dp"
-        android:hint="Manzil" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter Manzil" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Submit" />
+        android:text="Add" />
 
 </LinearLayout>

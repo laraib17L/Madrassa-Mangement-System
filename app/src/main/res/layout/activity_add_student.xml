@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/backgrouncolor"
     android:gravity="center">
 
     <EditText
@@ -9,33 +10,42 @@
         android:layout_width="110dp"
         android:layout_height="49dp"
         android:inputType="number"
-        android:hint="ID" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter ID" />
 
     <EditText
         android:id="@+id/nameEditText"
         android:layout_width="110dp"
         android:layout_height="49dp"
-        android:hint="Name" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter Name" />
 
     <EditText
         android:id="@+id/ageEditText"
         android:layout_width="110dp"
         android:layout_height="49dp"
         android:inputType="number"
-        android:hint="Age" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter Age" />
 
 
     <EditText
         android:id="@+id/classEditText"
         android:layout_width="110dp"
         android:layout_height="49dp"
-        android:hint="Class" />
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
+        android:hint="Enter Class" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColorHint="#FFD700"
         android:layout_gravity="center_horizontal"
-        android:text="Submit" />
+        android:text="Add" />
 
 </LinearLayout>

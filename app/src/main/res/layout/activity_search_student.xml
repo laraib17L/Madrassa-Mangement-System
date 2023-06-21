@@ -4,14 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/backgrouncolor"
     tools:context=".SearchStudent">
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter search criteria"
+        android:hint="Enter Name"
         android:imeOptions="actionSearch"
+        android:textColorHint="#FFD700"
+        android:textColor="#FFD700"
         android:inputType="text"
         android:maxLines="1"
         android:layout_marginBottom="16dp" />
